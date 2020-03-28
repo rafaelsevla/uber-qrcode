@@ -6,8 +6,12 @@ import { translate } from '~/locales'
 
 function Welcome(props) {
   const {
-    navigation: { navigate }
+    navigation: { navigate, setOptions, toggleDrawer }
   } = props
+
+  setOptions({
+    headerMode: 'none'
+  })
 
   return (
     <View style={{ height: 200 }}>
