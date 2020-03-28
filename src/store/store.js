@@ -1,6 +1,6 @@
 import { createStore, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
-import rootReducer from '../screens/reducers'
+import { RootReducer } from '~/screens'
 import { persistStore, persistReducer } from 'redux-persist'
 import AsyncStorage from '@react-native-community/async-storage'
 
@@ -10,7 +10,7 @@ const persistConfig = {
   storage: AsyncStorage
 }
 
-const persistedReducer = persistReducer(persistConfig, rootReducer)
+const persistedReducer = persistReducer(persistConfig, RootReducer)
 
 const logger = () =>
   window.__REDUX_DEVTOOLS_EXTENSION__
