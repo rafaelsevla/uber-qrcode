@@ -16,9 +16,12 @@ function HomeStack({ navigation }) {
     <Stack.Navigator
       initialRouteName="Welcome"
       screenOptions={{
+        headerTransparent: true,
+        title: '',
         headerLeft: () => (
           <Button
-            icon={<Icon name="bars" size={15} color="black" />}
+            type="clear"
+            icon={<Icon name="bars" size={30} color="black" />}
             onPress={() => navigation.toggleDrawer()}
           />
         )
