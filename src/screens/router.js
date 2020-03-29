@@ -6,6 +6,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 import { createDrawerNavigator } from '@react-navigation/drawer'
 import { Button } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome'
+import { useAuth } from '~/hooks'
 
 const Stack = createStackNavigator()
 
@@ -27,17 +28,27 @@ function HomeStack({ navigation }) {
         )
       }}>
       <Stack.Screen name="Welcome" component={Welcome} />
-      <Stack.Screen name="Login" component={Login} />
     </Stack.Navigator>
   )
 }
 
 export default function Router() {
+  const { userInfo } = useAuth()
+  console.log('entrou aqui')
+  if (userInfo.isUserLoggedIn) {
+    return (
+      <NavigationContainer>
+        <Drawer.Navigator initialRouteName="HomeStack" drawerIcon>
+          <Drawer.Screen name="HomeStack" component={HomeStack} />
+        </Drawer.Navigator>
+      </NavigationContainer>
+    )
+  }
   return (
     <NavigationContainer>
-      <Drawer.Navigator initialRouteName="HomeStack" drawerIcon>
-        <Drawer.Screen name="HomeStack" component={HomeStack} />
-      </Drawer.Navigator>
+      <Stack.Navigator>
+        <Stack.Screen name="Login" component={Login} />
+      </Stack.Navigator>
     </NavigationContainer>
   )
 }
