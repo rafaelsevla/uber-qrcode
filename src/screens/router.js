@@ -34,7 +34,7 @@ function HomeStack({ navigation }) {
 
 export default function Router() {
   const { userInfo } = useAuth()
-  console.log('entrou aqui')
+
   if (userInfo.isUserLoggedIn) {
     return (
       <NavigationContainer>
