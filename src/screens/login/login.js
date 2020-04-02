@@ -4,24 +4,32 @@ import { View, TextInput, Button, Text } from 'react-native'
 import { withFormik } from 'formik'
 import * as Yup from 'yup'
 
-const Form = ({ values, setFieldValue, handleSubmit, errors, touched }) => (
-  <View>
-    {touched.email && errors.email && <Text>{errors.email}</Text>}
-    <TextInput
-      style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
-      value={values.email}
-      onChangeText={text => setFieldValue('email', text)}
-    />
+const Form = ({ values, setFieldValue, handleSubmit, errors, touched }) => {
+  let inputPassword = null
 
-    <TextInput
-      style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
-      value={values.password}
-      onChangeText={text => setFieldValue('password', text)}
-    />
-
-    <Button onPress={handleSubmit} title="Login" />
-  </View>
-)
+  return (
+    <View>
+      {touched.email && errors.email && <Text>{errors.email}</Text>}
+      <TextInput
+        style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+        value={values.email}
+        onChangeText={text => setFieldValue('email', text)}
+        returnKeyType="next"
+        keyboardType="email-address"
+        onSubmitEditing={() => inputPassword.focus()}
+      />
+      <TextInput
+        style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+        value={values.password}
+        onChangeText={text => setFieldValue('password', text)}
+        ref={input => {
+          inputPassword = input
+        }}
+      />
+      <Button onPress={handleSubmit} title="Login" />
+    </View>
+  )
+}
 
 export default withFormik({
   mapPropsToValues: () => ({ email: '', password: '' }),
