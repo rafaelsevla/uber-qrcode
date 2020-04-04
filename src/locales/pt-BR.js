@@ -4,5 +4,6 @@ export default {
   invalidEmail: 'Digite um e-mail válido',
   emailRequired: 'Preencha o campo de e-mail',
   invalidPassword: 'A senha deve ter no mínimo 6 caracteres',
-  passwordRequired: 'Preencha o campo de senha'
+  passwordRequired: 'Preencha o campo de senha',
+  login: 'Entrar'
 }

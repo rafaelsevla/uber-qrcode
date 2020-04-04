@@ -1,21 +1,21 @@
 import React, { createContext, useCallback, useState, useContext } from 'react'
+import AsyncStorage from '@react-native-community/async-storage'
 
 const AuthContext = createContext()
 
-function AuthProvider ({ children }) {
+function AuthProvider({ children }) {
   const [userInfo, setUserInfo] = useState({
     isUserLoggedIn: false,
     user: null
   })
 
-  function login (isUserLoggedIn, user) {
-    setUserInfo({
-      isUserLoggedIn,
-      user
-    })
+  async function login(isUserLoggedIn, user) {
+    const data = { isUserLoggedIn, user }
+    setUserInfo(data)
+    await AsyncStorage.setItem('userData', JSON.stringfy({ data }))
   }
 
-  function logout () {
+  function logout() {
     setUserInfo({
       isUserLoggedIn: false,
       user: null
@@ -34,6 +34,5 @@ function AuthProvider ({ children }) {
     </AuthContext.Provider>
   )
 }
-
 
 export { AuthProvider, AuthContext }

@@ -5,6 +5,7 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { createDrawerNavigator } from '@react-navigation/drawer'
 import { Button } from 'react-native-elements'
+import { StatusBar } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { useAuth } from '~/hooks'
 
@@ -19,6 +20,10 @@ function HomeStack({ navigation }) {
       screenOptions={{
         headerTransparent: true,
         title: '',
+        headerStyle: {
+          backgroundColor: '#4388D6'
+        },
+        headerTintColor: '#fff',
         headerLeft: () => (
           <Button
             type="clear"
@@ -26,18 +31,24 @@ function HomeStack({ navigation }) {
             onPress={() => navigation.toggleDrawer()}
           />
         )
-      }}>
+      }}
+    >
       <Stack.Screen name="Welcome" component={Welcome} />
     </Stack.Navigator>
   )
 }
 
-export default function Router() {
+function Router() {
   const { userInfo } = useAuth()
 
   if (userInfo.isUserLoggedIn) {
     return (
       <NavigationContainer>
+        <StatusBar
+          backgroundColor="#4388D6"
+          translucent
+          barStyle="light-content"
+        />
         <Drawer.Navigator initialRouteName="HomeStack" drawerIcon>
           <Drawer.Screen name="HomeStack" component={HomeStack} />
         </Drawer.Navigator>
@@ -46,9 +57,26 @@ export default function Router() {
   }
   return (
     <NavigationContainer>
+      <StatusBar
+        backgroundColor="#4388D6"
+        translucent
+        barStyle="light-content"
+      />
       <Stack.Navigator>
-        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen
+          name="Login"
+          component={Login}
+          options={{
+            title: 'Login',
+            headerStyle: {
+              backgroundColor: '#4388D6'
+            },
+            headerTintColor: '#fff'
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   )
 }
+
+export default Router

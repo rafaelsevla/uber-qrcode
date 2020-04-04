@@ -1,49 +1,97 @@
-import React, { useState } from 'react'
-import t from 'prop-types'
-import { View, Text } from 'react-native'
+import React from 'react'
+import { View } from 'react-native'
 import { Input, Button } from 'react-native-elements'
-import styled from 'styled-components'
-import { translate } from '~/locales'
-
-import { withFormik } from 'formik'
+import t from 'prop-types'
+import md5 from 'md5'
+import { Formik } from 'formik'
 import * as Yup from 'yup'
 
-const Form = ({ values, setFieldValue, handleSubmit, errors, touched }) => {
-  const [isLoading] = useState(false)
+import styled from 'styled-components'
+
+import client from '~/client'
+import { useAuth } from '~/hooks'
+import { translate } from '~/locales'
+import { API } from '~/routes'
+
+export default function Form() {
+  const { login } = useAuth()
   let inputPassword = null
 
   return (
-    <FormContainer>
-      <InputContainer>
-        <InputBlock>
-          <Input
-            placeholder={translate('email')}
-            value={values.email}
-            onChangeText={text => setFieldValue('email', text)}
-            returnKeyType="next"
-            keyboardType="email-address"
-            onSubmitEditing={() => inputPassword.focus()}
-            errorStyle={{ color: '#f00' }}
-            errorMessage={touched.email && errors.email && errors.email}
+    <Formik
+      initialValues={{ email: '', password: '' }}
+      onSubmit={(values, actions) => {
+        client
+          .post(API.LOGIN)
+          .then(() => {
+            login(true, values.email)
+            actions.setSubmitting(false)
+          })
+          .catch(e => {
+            alert(e.message)
+            actions.setSubmitting(false)
+          })
+      }}
+      validationSchema={Yup.object().shape({
+        email: Yup.string()
+          .email(translate('invalidEmail'))
+          .required(translate('emailRequired')),
+        password: Yup.string()
+          .min(6, translate('invalidPassword'))
+          .required(translate('passwordRequired'))
+      })}
+    >
+      {({
+        values,
+        handleChange,
+        errors,
+        setFieldTouched,
+        touched,
+        isValid,
+        handleSubmit,
+        isSubmitting
+      }) => (
+        <FormContainer>
+          <InputContainer>
+            <InputBlock>
+              <Input
+                placeholder={translate('email')}
+                value={values.email}
+                onChangeText={handleChange('email')}
+                onBlur={() => setFieldTouched('email')}
+                returnKeyType="next"
+                keyboardType="email-address"
+                onSubmitEditing={() => inputPassword.focus()}
+                errorStyle={{ color: '#f00' }}
+                errorMessage={touched.email && errors.email && errors.email}
+              />
+            </InputBlock>
+            <InputBlock>
+              <Input
+                secureTextEntry
+                placeholder={translate('password')}
+                value={values.password}
+                onChangeText={handleChange('password')}
+                onBlur={() => setFieldTouched('password')}
+                errorStyle={{ color: '#f00' }}
+                errorMessage={
+                  touched.password && errors.password && errors.password
+                }
+                ref={input => {
+                  inputPassword = input
+                }}
+              />
+            </InputBlock>
+          </InputContainer>
+          <Button
+            onPress={handleSubmit}
+            title={translate('login')}
+            disabled={!isValid}
+            loading={isSubmitting}
           />
-        </InputBlock>
-        <InputBlock>
-          <Input
-            placeholder={translate('password')}
-            value={values.password}
-            onChangeText={text => setFieldValue('password', text)}
-            errorStyle={{ color: '#f00' }}
-            errorMessage={
-              touched.password && errors.password && errors.password
-            }
-            ref={input => {
-              inputPassword = input
-            }}
-          />
-        </InputBlock>
-      </InputContainer>
-      <Button onPress={handleSubmit} title="Login" loading={isLoading} />
-    </FormContainer>
+        </FormContainer>
+      )}
+    </Formik>
   )
 }
 
@@ -63,29 +111,3 @@ const InputContainer = styled(View)`
 const InputBlock = styled(View)`
   margin-bottom: 20px;
 `
-
-Form.propTypes = {
-  values: t.object.isRequired,
-  setFieldValue: t.func.isRequired,
-  handleSubmit: t.func.isRequired,
-  errors: t.object,
-  touched: t.object
-}
-
-export default withFormik({
-  mapPropsToValues: () => ({ email: '', password: '' }),
-
-  validationSchema: Yup.object().shape({
-    email: Yup.string()
-      .email(translate('invalidEmail'))
-      .required(translate('emailRequired')),
-    password: Yup.string()
-      .min(6, translate('invalidPassword'))
-      .required(translate('passwordRequired'))
-  }),
-
-  handleSubmit: (values, { setSubmitting, setErrors }) => {
-    setSubmitting(false)
-    if (err) setErrors({ message: err.message })
-  }
-})(Form)
