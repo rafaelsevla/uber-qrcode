@@ -2,12 +2,11 @@ import React from 'react'
 import t from 'prop-types'
 import { Text, View, Image, Alert } from 'react-native'
 import { Button } from 'react-native-elements'
-import { translate } from '~/locales'
 import MapView from 'react-native-maps'
 
 function Welcome(props) {
   const {
-    navigation: { navigate }
+    navigation: { navigate },
   } = props
 
   return (
@@ -20,7 +19,7 @@ function Welcome(props) {
           latitude: -21.7928248,
           longitude: -48.1697339,
           latitudeDelta: 0.04,
-          longitudeDelta: 0.04
+          longitudeDelta: 0.04,
         }}
       />
     </View>
@@ -28,7 +27,7 @@ function Welcome(props) {
 }
 
 Welcome.propTypes = {
-  navigation: t.object.isRequired
+  navigation: t.object.isRequired,
 }
 
 export default Welcome

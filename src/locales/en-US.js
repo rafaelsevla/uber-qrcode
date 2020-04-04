@@ -1,3 +1,8 @@
 export default {
-  hello: 'Hello World'
+  email: 'Email',
+  password: 'Password',
+  invalidEmail: 'Enter a valid email',
+  emailRequired: 'Fill in the email field',
+  invalidPassword: 'Password must be at least 6 characters',
+  passwordRequired: 'Fill in the password field'
 }
