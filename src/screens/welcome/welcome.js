@@ -2,7 +2,9 @@ import React from 'react'
 import t from 'prop-types'
 import { Text, View, Image, Alert, StatusBar } from 'react-native'
 import { Button } from 'react-native-elements'
+import AsyncStorage from '@react-native-community/async-storage'
 import MapView from 'react-native-maps'
+import { useAuth } from '~/hooks'
 
 function Welcome(props) {
   const {

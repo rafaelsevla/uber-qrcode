@@ -1,6 +1,7 @@
 import React from 'react'
 import Login from './login'
 import Welcome from './welcome'
+import { View } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { createDrawerNavigator } from '@react-navigation/drawer'
@@ -38,6 +39,14 @@ function HomeStack({ navigation }) {
   )
 }
 
+const Logout = () => {
+  const { logout } = useAuth()
+  React.useEffect(() => {
+    logout()
+  }, [])
+  return <View />
+}
+
 function Router() {
   const { userInfo } = useAuth()
 
@@ -50,7 +59,12 @@ function Router() {
           barStyle="light-content"
         />
         <Drawer.Navigator initialRouteName="HomeStack" drawerIcon>
-          <Drawer.Screen name="HomeStack" component={HomeStack} />
+          <Drawer.Screen
+            options={{ drawerLabel: () => null }}
+            name="HomeStack"
+            component={HomeStack}
+          />
+          <Drawer.Screen name="Logout" component={Logout} />
         </Drawer.Navigator>
       </NavigationContainer>
     )

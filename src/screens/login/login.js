@@ -24,7 +24,7 @@ export default function Form() {
         client
           .post(API.LOGIN)
           .then(() => {
-            login(true, values.email)
+            login(values.email)
             actions.setSubmitting(false)
           })
           .catch(e => {

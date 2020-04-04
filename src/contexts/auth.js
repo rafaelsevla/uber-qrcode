@@ -9,16 +9,21 @@ function AuthProvider({ children }) {
     user: null
   })
 
-  async function login(isUserLoggedIn, user) {
-    const data = { isUserLoggedIn, user }
+  const login = async user => {
+    const data = {
+      isUserLoggedIn: true,
+      user: user
+    }
     setUserInfo(data)
-    await AsyncStorage.setItem('userData', JSON.stringfy({ data }))
+    await AsyncStorage.setItem('userData', JSON.stringify(data))
   }
 
-  function logout() {
-    setUserInfo({
-      isUserLoggedIn: false,
-      user: null
+  const logout = () => {
+    AsyncStorage.removeItem('userData').then(() => {
+      setUserInfo({
+        isUserLoggedIn: false,
+        user: null
+      })
     })
   }
 
