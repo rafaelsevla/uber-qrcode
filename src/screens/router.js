@@ -1,6 +1,4 @@
 import React from 'react'
-import Login from './login'
-import Welcome from './welcome'
 import { View } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
@@ -10,31 +8,18 @@ import { StatusBar } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { useAuth } from '~/hooks'
 
-const Stack = createStackNavigator()
+import Login from './login'
+import Welcome from './welcome'
+import ReaderQRCode from './readerQRCode'
 
+const Stack = createStackNavigator()
 const Drawer = createDrawerNavigator()
 
 function HomeStack({ navigation }) {
   return (
-    <Stack.Navigator
-      initialRouteName="Welcome"
-      screenOptions={{
-        headerTransparent: true,
-        title: '',
-        headerStyle: {
-          backgroundColor: '#4388D6'
-        },
-        headerTintColor: '#fff',
-        headerLeft: () => (
-          <Button
-            type="clear"
-            icon={<Icon name="bars" size={30} color="black" />}
-            onPress={() => navigation.toggleDrawer()}
-          />
-        )
-      }}
-    >
+    <Stack.Navigator initialRouteName="Welcome">
       <Stack.Screen name="Welcome" component={Welcome} />
+      <Stack.Screen name="QRCodeReader" component={ReaderQRCode} />
     </Stack.Navigator>
   )
 }

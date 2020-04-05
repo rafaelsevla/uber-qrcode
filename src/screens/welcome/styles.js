@@ -7,6 +7,7 @@ export default StyleSheet.create({
     alignItems: 'flex-end'
   },
   buttonContainer: {
+    position: 'absolute',
     bottom: 20,
     right: 20
   },

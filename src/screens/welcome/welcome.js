@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import t from 'prop-types'
 import { Text, View, Image, Alert, StatusBar } from 'react-native'
 import { Button } from 'react-native-elements'
@@ -8,10 +8,24 @@ import AsyncStorage from '@react-native-community/async-storage'
 import MapView from 'react-native-maps'
 import { useAuth } from '~/hooks'
 
-function Welcome(props) {
-  const {
-    navigation: { navigate }
-  } = props
+function Welcome({ navigation }) {
+  useEffect(() => {
+    navigation.setOptions({
+      headerTransparent: true,
+      title: null,
+      headerLeft: () => (
+        <Button
+          type="clear"
+          icon={<Icon name="bars" size={30} color="black" />}
+          onPress={() => navigation.toggleDrawer()}
+        />
+      )
+    })
+  }, [navigation])
+
+  const onPressQRCodeButton = e => {
+    navigation.navigate('QRCodeReader')
+  }
 
   return (
     <View style={styles.root}>
@@ -31,6 +45,7 @@ function Welcome(props) {
           buttonStyle={styles.buttonStyle}
           containerStyle={styles.containerStyle}
           icon={<Icon name="qrcode" size={40} color="white" />}
+          onPress={onPressQRCodeButton}
         />
       </View>
     </View>

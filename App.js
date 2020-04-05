@@ -5,6 +5,7 @@ import Router from './src/screens'
 import { View } from 'react-native'
 import { AuthProvider } from '~/contexts'
 import AsyncStorage from '@react-native-community/async-storage'
+import FlashMessage from 'react-native-flash-message'
 import { useAuth } from '~/hooks'
 
 function CheckUserIsLogged() {
@@ -33,6 +34,7 @@ const App = () => (
   <AuthProvider>
     <CheckUserIsLogged />
     <Router />
+    <FlashMessage />
   </AuthProvider>
 )
 
