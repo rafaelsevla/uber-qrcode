@@ -24,7 +24,7 @@ function ReaderQRCode({ navigation }) {
         />
       )
     })
-  }, [])
+  }, [navigation])
 
   const onSuccess = ({ data }) => {
     client

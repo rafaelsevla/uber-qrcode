@@ -28,7 +28,7 @@ const Logout = () => {
   const { logout } = useAuth()
   React.useEffect(() => {
     logout()
-  }, [])
+  }, [logout])
   return <View />
 }
 
