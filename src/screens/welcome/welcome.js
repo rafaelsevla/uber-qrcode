@@ -2,6 +2,8 @@ import React from 'react'
 import t from 'prop-types'
 import { Text, View, Image, Alert, StatusBar } from 'react-native'
 import { Button } from 'react-native-elements'
+import Icon from 'react-native-vector-icons/FontAwesome'
+import styles from './styles'
 import AsyncStorage from '@react-native-community/async-storage'
 import MapView from 'react-native-maps'
 import { useAuth } from '~/hooks'
@@ -12,12 +14,10 @@ function Welcome(props) {
   } = props
 
   return (
-    <View
-      style={{ flex: 1, justifyContent: 'flex-end', alignItems: 'flex-end' }}
-    >
+    <View style={styles.root}>
       <StatusBar hidden />
       <MapView
-        style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
+        style={styles.mapView}
         loadingEnabled={true}
         initialRegion={{
           latitude: -21.7928248,
@@ -26,6 +26,13 @@ function Welcome(props) {
           longitudeDelta: 0.04
         }}
       />
+      <View style={styles.buttonContainer}>
+        <Button
+          buttonStyle={styles.buttonStyle}
+          containerStyle={styles.containerStyle}
+          icon={<Icon name="qrcode" size={40} color="white" />}
+        />
+      </View>
     </View>
   )
 }

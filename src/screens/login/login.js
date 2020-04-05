@@ -6,7 +6,7 @@ import md5 from 'md5'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
 
-import styled from 'styled-components'
+import styles from './styles'
 
 import client from '~/client'
 import { useAuth } from '~/hooks'
@@ -51,9 +51,9 @@ export default function Form() {
         handleSubmit,
         isSubmitting
       }) => (
-        <FormContainer>
-          <InputContainer>
-            <InputBlock>
+        <View style={styles.formContainer}>
+          <View style={styles.inputContainer}>
+            <View style={styles.inputBlock}>
               <Input
                 placeholder={translate('email')}
                 value={values.email}
@@ -62,18 +62,18 @@ export default function Form() {
                 returnKeyType="next"
                 keyboardType="email-address"
                 onSubmitEditing={() => inputPassword.focus()}
-                errorStyle={{ color: '#f00' }}
+                errorStyle={styles.error}
                 errorMessage={touched.email && errors.email && errors.email}
               />
-            </InputBlock>
-            <InputBlock>
+            </View>
+            <View style={styles.inputBlock}>
               <Input
                 secureTextEntry
                 placeholder={translate('password')}
                 value={values.password}
                 onChangeText={handleChange('password')}
                 onBlur={() => setFieldTouched('password')}
-                errorStyle={{ color: '#f00' }}
+                errorStyle={styles.error}
                 errorMessage={
                   touched.password && errors.password && errors.password
                 }
@@ -81,33 +81,16 @@ export default function Form() {
                   inputPassword = input
                 }}
               />
-            </InputBlock>
-          </InputContainer>
+            </View>
+          </View>
           <Button
             onPress={handleSubmit}
             title={translate('login')}
             disabled={!isValid}
             loading={isSubmitting}
           />
-        </FormContainer>
+        </View>
       )}
     </Formik>
   )
 }
-
-const FormContainer = styled(View)`
-  padding: 0 10px 20px;
-  margin: 10px 10px 10px;
-  border-radius: 10px;
-`
-
-const InputContainer = styled(View)`
-  margin: 20px 0;
-  background-color: white;
-  padding: 30px 25px;
-  border-radius: 5px;
-`
-
-const InputBlock = styled(View)`
-  margin-bottom: 20px;
-`
