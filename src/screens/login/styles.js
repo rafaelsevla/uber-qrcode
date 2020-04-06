@@ -11,7 +11,7 @@ export default StyleSheet.create({
   },
   inputContainer: {
     marginVertical: 20,
-    backgroundColor: '#fff',
+    backgroundColor: colors.light,
     paddingVertical: 30,
     paddingHorizontal: 25,
     borderRadius: 5

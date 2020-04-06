@@ -3,14 +3,15 @@ import t from 'prop-types'
 import { Text, View, Image, Alert, StatusBar } from 'react-native'
 import { Button } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome'
-import styles from './styles'
 import Geolocation from '@react-native-community/geolocation'
-import MapView, { Marker } from 'react-native-maps'
-import { useAuth } from '~/hooks'
-import Flag from '~/assets/icons/marker_flag.png'
+import MapView, { Marker, Callout } from 'react-native-maps'
 
+import { useAuth } from '~/hooks'
 import client from '~/client'
 import { API } from '~/routes'
+import { translate } from '~/locales'
+import Flag from '~/assets/icons/marker_flag.png'
+import styles from './styles'
 
 function Welcome({ navigation }) {
   const [currentRegion, setCurrentRegion] = useState(null)
@@ -50,6 +51,7 @@ function Welcome({ navigation }) {
   return (
     <View style={styles.root}>
       <StatusBar hidden />
+
       {currentRegion && (
         <MapView
           style={styles.mapView}
@@ -62,24 +64,32 @@ function Welcome({ navigation }) {
           }}
         >
           <Marker
+            title={translate('flagLocation')}
             coordinate={{
               latitude: currentRegion.latitude,
               longitude: currentRegion.longitude
             }}
           >
-            <Image source={Flag} style={{ height: 40, width: 40 }} />
+            <Image source={Flag} style={styles.flag} />
           </Marker>
           {markers.map(marker => {
             return (
               <Marker
                 key={marker.id}
-                title={marker.id}
-                description={'aqui um detalhamento teste so pra testar'}
                 coordinate={{
                   latitude: marker.latitude,
                   longitude: marker.longitude
                 }}
-              />
+              >
+                <Callout>
+                  <View style={styles.callout}>
+                    <Text style={styles.markName}>{marker.name}</Text>
+                    <Text style={styles.markDescription}>
+                      {marker.description}
+                    </Text>
+                  </View>
+                </Callout>
+              </Marker>
             )
           })}
         </MapView>

@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native'
+import { colors } from '~/styles'
 
 export default StyleSheet.create({
   root: {
@@ -28,5 +29,24 @@ export default StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0
+  },
+  flag: {
+    height: 40,
+    width: 40
+  },
+  imageMarkerContainer: {
+    maxHeight: 50
+  },
+  callout: {
+    width: 260,
+    height: 'auto'
+  },
+  markName: {
+    fontWeight: 'bold',
+    fontSize: 16
+  },
+  markDescription: {
+    color: colors.secondary,
+    marginTop: 5
   }
 })

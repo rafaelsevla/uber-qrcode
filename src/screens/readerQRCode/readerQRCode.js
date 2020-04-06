@@ -15,7 +15,7 @@ function ReaderQRCode({ navigation }) {
   useEffect(() => {
     navigation.setOptions({
       headerTransparent: true,
-      title: '',
+      title: null,
       headerLeft: () => (
         <Button
           type="clear"

@@ -5,5 +5,6 @@ export default {
   emailRequired: 'Fill in the email field',
   invalidPassword: 'Password must be at least 6 characters',
   passwordRequired: 'Fill in the password field',
-  login: 'Login'
+  login: 'Login',
+  flagLocation: 'Your Location'
 }

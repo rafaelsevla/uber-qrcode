@@ -5,5 +5,6 @@ export default {
   emailRequired: 'Preencha o campo de e-mail',
   invalidPassword: 'A senha deve ter no mínimo 6 caracteres',
   passwordRequired: 'Preencha o campo de senha',
-  login: 'Entrar'
+  login: 'Entrar',
+  flagLocation: 'Sua localização'
 }

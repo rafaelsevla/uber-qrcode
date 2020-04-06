@@ -6,7 +6,9 @@ import { createDrawerNavigator } from '@react-navigation/drawer'
 import { Button } from 'react-native-elements'
 import { StatusBar } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
+
 import { useAuth } from '~/hooks'
+import { colors } from '~/styles'
 
 import Login from './login'
 import Welcome from './welcome'
@@ -39,7 +41,7 @@ function Router() {
     return (
       <NavigationContainer>
         <StatusBar
-          backgroundColor="#4388D6"
+          backgroundColor={colors.primary}
           translucent
           barStyle="light-content"
         />
@@ -57,7 +59,7 @@ function Router() {
   return (
     <NavigationContainer>
       <StatusBar
-        backgroundColor="#4388D6"
+        backgroundColor={colors.primary}
         translucent
         barStyle="light-content"
       />
@@ -68,9 +70,9 @@ function Router() {
           options={{
             title: 'Login',
             headerStyle: {
-              backgroundColor: '#4388D6'
+              backgroundColor: colors.primary
             },
-            headerTintColor: '#fff'
+            headerTintColor: colors.light
           }}
         />
       </Stack.Navigator>
