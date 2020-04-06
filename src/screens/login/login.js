@@ -1,7 +1,6 @@
 import React from 'react'
 import { View } from 'react-native'
 import { Input, Button } from 'react-native-elements'
-import t from 'prop-types'
 import md5 from 'md5'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
@@ -64,6 +63,7 @@ export default function Form() {
                 onSubmitEditing={() => inputPassword.focus()}
                 errorStyle={styles.error}
                 errorMessage={touched.email && errors.email && errors.email}
+                autoCapitalize="none"
               />
             </View>
             <View style={styles.inputBlock}>
@@ -72,6 +72,7 @@ export default function Form() {
                 placeholder={translate('password')}
                 value={values.password}
                 onChangeText={handleChange('password')}
+                autoCapitalize="none"
                 onBlur={() => setFieldTouched('password')}
                 errorStyle={styles.error}
                 errorMessage={

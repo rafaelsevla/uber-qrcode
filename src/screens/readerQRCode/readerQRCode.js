@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react'
 import { View } from 'react-native'
+import t from 'prop-types'
 import { Button } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import QRCodeScanner from 'react-native-qrcode-scanner'
-import { showMessage, hideMessage } from 'react-native-flash-message'
-import { colors } from '~/styles'
+import { showMessage } from 'react-native-flash-message'
 
 import client from '~/client'
 import { API } from '~/routes'
-
+import { colors } from '~/styles'
 import styles from './styles'
 
 function ReaderQRCode({ navigation }) {
@@ -51,6 +51,10 @@ function ReaderQRCode({ navigation }) {
       />
     </View>
   )
+}
+
+ReaderQRCode.propTypes = {
+  navigation: t.object.isRequired
 }
 
 export default ReaderQRCode

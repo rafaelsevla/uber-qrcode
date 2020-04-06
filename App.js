@@ -1,12 +1,14 @@
-import 'react-native-gesture-handler'
 import React, { useEffect } from 'react'
+import { View } from 'react-native'
 import SplashScreen from 'react-native-splash-screen'
 import Router from './src/screens'
-import { View } from 'react-native'
 import { AuthProvider } from '~/contexts'
 import AsyncStorage from '@react-native-community/async-storage'
 import FlashMessage from 'react-native-flash-message'
 import { useAuth } from '~/hooks'
+import 'react-native-gesture-handler'
+
+console.disableYellowBox = true
 
 function CheckUserIsLogged() {
   const { userInfo, login } = useAuth()
