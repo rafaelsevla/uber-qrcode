@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
+import { Text, View, Image, Alert, StatusBar, Platform } from 'react-native'
+import { PERMISSIONS, request } from 'react-native-permissions'
 import t from 'prop-types'
-import { Text, View, Image, Alert, StatusBar } from 'react-native'
 import { Button } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome'
-import Geolocation from '@react-native-community/geolocation'
+import Geolocation from 'react-native-geolocation-service'
 import MapView, { Marker, Callout } from 'react-native-maps'
 
 import { useAuth } from '~/hooks'
@@ -38,11 +39,44 @@ function Welcome({ navigation }) {
       .catch(e => alert(e.message))
   }, [markers])
 
+  const getCurrentPosition = () =>
+    Geolocation.getCurrentPosition(
+      position => {
+        setCurrentRegion(position.coords)
+      },
+      error => {
+        alert(error.message)
+      },
+      { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
+    )
+
+  const requestLocationPermission = () => {
+    try {
+      request(
+        Platform.select({
+          android: PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION
+        })
+      )
+        .then(result => {
+          if (result === 'granted') {
+            getCurrentPosition()
+          }
+        })
+        .catch(e => {
+          console.log(e)
+        })
+    } catch (err) {
+      console.warn(err)
+    }
+  }
+
   useEffect(() => {
-    Geolocation.getCurrentPosition(coords => {
-      setCurrentRegion(coords.coords)
-    })
-  }, [])
+    if (Platform.OS === 'android') {
+      requestLocationPermission()
+    } else {
+      getCurrentPosition()
+    }
+  }, [getCurrentPosition])
 
   const onPressQRCodeButton = e => {
     navigation.navigate('QRCodeReader')
@@ -51,8 +85,7 @@ function Welcome({ navigation }) {
   return (
     <View style={styles.root}>
       <StatusBar hidden />
-
-      {currentRegion && (
+      {currentRegion ? (
         <MapView
           style={styles.mapView}
           loadingEnabled
@@ -93,6 +126,8 @@ function Welcome({ navigation }) {
             )
           })}
         </MapView>
+      ) : (
+        <Text>Error</Text>
       )}
       <View style={styles.buttonContainer}>
         <Button

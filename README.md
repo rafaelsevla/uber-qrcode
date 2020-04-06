@@ -26,6 +26,7 @@
 
 ### Android
 
+- Put your Google Api Key [here](https://github.com/rafaelsevla/uber-qrcode/blob/master/android/app/src/main/AndroidManifest.xml#L18)
 - Run `npx react-native run-android`
 - On simulator, to change location click on the ellipsis (...) in the toolbar
 
