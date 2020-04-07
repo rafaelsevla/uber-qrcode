@@ -48,5 +48,14 @@ export default StyleSheet.create({
   markDescription: {
     color: colors.secondary,
     marginTop: 5
+  },
+  requestPermissionContainer: {
+    width: '100%',
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  fs15: {
+    fontSize: 15
   }
 })

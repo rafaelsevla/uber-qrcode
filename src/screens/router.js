@@ -9,6 +9,7 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 
 import { useAuth } from '~/hooks'
 import { colors } from '~/styles'
+import { translate } from '~/locales'
 
 import Login from './login'
 import Welcome from './welcome'
@@ -46,9 +47,8 @@ function Router() {
           barStyle="light-content"
         />
         <Drawer.Navigator initialRouteName="HomeStack" drawerIcon>
-          <Drawer.Screen
-            options={{ drawerLabel: () => null }}
-            name="HomeStack"
+          <Stack.Screen
+            name={translate('initialScreenName')}
             component={HomeStack}
           />
           <Drawer.Screen name="Logout" component={Logout} />

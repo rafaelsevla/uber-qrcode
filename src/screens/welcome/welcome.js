@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from 'react'
-import { Text, View, Image, Alert, StatusBar, Platform } from 'react-native'
+import {
+  Text,
+  View,
+  Image,
+  Alert,
+  StatusBar,
+  Platform,
+  TouchableOpacity
+} from 'react-native'
 import { PERMISSIONS, request } from 'react-native-permissions'
 import t from 'prop-types'
 import { Button } from 'react-native-elements'
@@ -17,6 +25,7 @@ import styles from './styles'
 function Welcome({ navigation }) {
   const [currentRegion, setCurrentRegion] = useState(null)
   const [markers, setMarkers] = useState([])
+  const [askMapPermission, setMapPermission] = useState(true)
 
   useEffect(() => {
     navigation.setOptions({
@@ -60,6 +69,8 @@ function Welcome({ navigation }) {
         .then(result => {
           if (result === 'granted') {
             getCurrentPosition()
+          } else {
+            setMapPermission(false)
           }
         })
         .catch(e => {
@@ -72,7 +83,7 @@ function Welcome({ navigation }) {
 
   useEffect(() => {
     if (Platform.OS === 'android') {
-      requestLocationPermission()
+      askMapPermission && requestLocationPermission()
     } else {
       getCurrentPosition()
     }
@@ -127,7 +138,13 @@ function Welcome({ navigation }) {
           })}
         </MapView>
       ) : (
-        <Text>Error</Text>
+        <View style={styles.requestPermissionContainer}>
+          <TouchableOpacity onPress={requestLocationPermission}>
+            <Text style={styles.fs15}>
+              {translate('mapDenied')} {translate('allow')}
+            </Text>
+          </TouchableOpacity>
+        </View>
       )}
       <View style={styles.buttonContainer}>
         <Button

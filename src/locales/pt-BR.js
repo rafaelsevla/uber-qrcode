@@ -6,5 +6,8 @@ export default {
   invalidPassword: 'A senha deve ter no mínimo 6 caracteres',
   passwordRequired: 'Preencha o campo de senha',
   login: 'Entrar',
-  flagLocation: 'Sua localização'
+  flagLocation: 'Sua localização',
+  initialScreenName: 'Home',
+  mapDenied: 'O uso do mapa não foi permitido.',
+  allow: 'Permitir!'
 }

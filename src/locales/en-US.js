@@ -6,5 +6,8 @@ export default {
   invalidPassword: 'Password must be at least 6 characters',
   passwordRequired: 'Fill in the password field',
   login: 'Login',
-  flagLocation: 'Your Location'
+  flagLocation: 'Your Location',
+  initialScreenName: 'Home',
+  mapDenied: 'The map was not allowed.',
+  allow: 'Allow!'
 }
