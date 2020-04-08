@@ -9,5 +9,6 @@ export default {
   flagLocation: 'Your Location',
   initialScreenName: 'Home',
   mapDenied: 'The map was not allowed.',
-  allow: 'Allow!'
+  allowMap_android: 'Click here to allow!',
+  allowMap_ios: 'Go to Settings > UberQRCode > Location > Enable location!'
 }

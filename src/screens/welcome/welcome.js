@@ -25,7 +25,6 @@ import styles from './styles'
 function Welcome({ navigation }) {
   const [currentRegion, setCurrentRegion] = useState(null)
   const [markers, setMarkers] = useState([])
-  const [askMapPermission, setMapPermission] = useState(true)
 
   useEffect(() => {
     navigation.setOptions({
@@ -69,8 +68,6 @@ function Welcome({ navigation }) {
         .then(result => {
           if (result === 'granted') {
             getCurrentPosition()
-          } else {
-            setMapPermission(false)
           }
         })
         .catch(e => {
@@ -81,13 +78,28 @@ function Welcome({ navigation }) {
     }
   }
 
+  const renderMessageToRequestPermissionOS = () => {
+    if (Platform.OS === 'android')
+      return (
+        <TouchableOpacity onPress={requestLocationPermission}>
+          <Text style={styles.fs15}>
+            {translate(`allowMap_${Platform.OS}`)}
+          </Text>
+        </TouchableOpacity>
+      )
+
+    return (
+      <Text style={styles.fs15}>{translate(`allowMap_${Platform.OS}`)}</Text>
+    )
+  }
+
   useEffect(() => {
     if (Platform.OS === 'android') {
-      askMapPermission && requestLocationPermission()
+      requestLocationPermission()
     } else {
       getCurrentPosition()
     }
-  }, [getCurrentPosition])
+  }, [])
 
   const onPressQRCodeButton = e => {
     navigation.navigate('QRCodeReader')
@@ -139,11 +151,8 @@ function Welcome({ navigation }) {
         </MapView>
       ) : (
         <View style={styles.requestPermissionContainer}>
-          <TouchableOpacity onPress={requestLocationPermission}>
-            <Text style={styles.fs15}>
-              {translate('mapDenied')} {translate('allow')}
-            </Text>
-          </TouchableOpacity>
+          <Text>{translate('mapDenied')}</Text>
+          {renderMessageToRequestPermissionOS()}
         </View>
       )}
       <View style={styles.buttonContainer}>
