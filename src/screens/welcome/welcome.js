@@ -8,7 +8,7 @@ import {
   Platform,
   TouchableOpacity
 } from 'react-native'
-import { PERMISSIONS, request } from 'react-native-permissions'
+import { PERMISSIONS, request, openSettings } from 'react-native-permissions'
 import t from 'prop-types'
 import { Button } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome'
@@ -89,7 +89,15 @@ function Welcome({ navigation }) {
       )
 
     return (
-      <Text style={styles.fs15}>{translate(`allowMap_${Platform.OS}`)}</Text>
+      <TouchableOpacity
+        onPress={() =>
+          openSettings().catch(() => alert(translate('cannotOpenSettings')))
+        }
+      >
+        <Text style={[styles.fs15, styles.textCenter]}>
+          {translate(`allowMap_${Platform.OS}`)}
+        </Text>
+      </TouchableOpacity>
     )
   }
 

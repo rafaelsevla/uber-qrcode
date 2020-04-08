@@ -11,5 +11,6 @@ export default {
   mapDenied: 'O uso do mapa não foi permitido.',
   allowMap_android: 'Clique aqui para permitir!',
   allowMap_ios:
-    'Vá em Configurações > UberQRCode > Localização > Habilitar localização'
+    'Clique aqui ou vá em Configurações > UberQRCode > Localização > Habilitar localização',
+  cannotOpenSettings: 'Não foi possivel abrir configurações'
 }

@@ -57,5 +57,8 @@ export default StyleSheet.create({
   },
   fs15: {
     fontSize: 15
+  },
+  textCenter: {
+    textAlign: 'center'
   }
 })

@@ -10,5 +10,7 @@ export default {
   initialScreenName: 'Home',
   mapDenied: 'The map was not allowed.',
   allowMap_android: 'Click here to allow!',
-  allowMap_ios: 'Go to Settings > UberQRCode > Location > Enable location!'
+  allowMap_ios:
+    'Click here or Go to Settings > \nUberQRCode > Location > Enable location!',
+  cannotOpenSettings: 'cannot open settings'
 }
