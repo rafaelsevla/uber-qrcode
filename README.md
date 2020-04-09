@@ -21,13 +21,15 @@
 #### iOS
 
 - Install iOS dependencies: `cd ios && pod install && cd ..`
-- Run `npx react-native run-ios` or `npx react-native run-ios --simulator="iPhone 8"` to choice iPhone version
+- Run server: `yarn start`
+- In another tab, run `npx react-native run-ios` or `npx react-native run-ios --simulator="iPhone 8"` to choice iPhone version
 - On simulator, change location on `Debug -> Location -> Custom Location...`
 
 #### Android
 
 - Put your Google Maps Api Key [here](https://github.com/rafaelsevla/uber-qrcode/blob/master/android/app/src/main/AndroidManifest.xml#L18)
-- Run `npx react-native run-android`
+- Run server: `yarn start`
+- In another tab, run `npx react-native run-android`
 - On simulator, to change location click on the ellipsis (...) in the toolbar
 
 ## License
